@@ -35,8 +35,8 @@ export class Login extends React.Component{
     handleSubmit(e){
         console.log(this.state.username);
         console.log(this.state.password);
-        if (this.state.username == localStorage.getItem("username") 
-        && this.state.password == localStorage.getItem("password")){
+        if (this.state.username === localStorage.getItem("username") 
+        && this.state.password === localStorage.getItem("password")){
             this.props.autenticate();
             localStorage.setItem("isLoggedIn",true);
         }

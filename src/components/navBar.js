@@ -9,10 +9,17 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import PersonIcon from '@material-ui/icons/Person';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 300,
   },
   fullList: {
     width: 'auto',
@@ -43,14 +50,18 @@ export default function TemporaryDrawer() {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+    <Grid container spacing={1}>
+    <Grid item xs={2} sm={4}>
+    <PersonIcon style={{ fontSize: 100, marginLeft: "5%"}} color="primary"></PersonIcon>
+   
+    </Grid>
+    <Grid style={{marginTop:"5%"}} item xs={2} sm={5}>
+        <div style={{fontSize: "120%"}}> Diego Corredor </div>
+        <div  style={{fontSize: "70%"}}>diego.corredor@mail.escuelaing.edu.co</div>
+       
+        
+    </Grid>
+    </Grid>
       <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -63,51 +74,24 @@ export default function TemporaryDrawer() {
     </div>
   );
 
-  const fullList = side => (
-    <div
-      className={classes.fullList}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
 
   return (
     <div>
-      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
-      <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
-      <Button onClick={toggleDrawer('top', true)}>Open Top</Button>
-      <Button onClick={toggleDrawer('bottom', true)}>Open Bottom</Button>
+
+    <AppBar position="static">
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>          
+              </Typography>
+            </Toolbar>
+          </AppBar>
+      
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
       </Drawer>
-      <Drawer anchor="top" open={state.top} onClose={toggleDrawer('top', false)}>
-        {fullList('top')}
-      </Drawer>
-      <Drawer anchor="bottom" open={state.bottom} onClose={toggleDrawer('bottom', false)}>
-        {fullList('bottom')}
-      </Drawer>
-      <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
-        {sideList('right')}
-      </Drawer>
+    
     </div>
   );
 }
